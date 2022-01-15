@@ -1,4 +1,4 @@
-### vd-server
+### vacation-finder-training
 
-vd-server is the vacator server which pull data from dclimate server periodically.
+vacation-finder-training is the vacator which pull data from dclimate server periodically and train models
 
