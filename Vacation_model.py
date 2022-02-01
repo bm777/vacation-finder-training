@@ -34,7 +34,7 @@ class Dataset:
             response['data'] = {k[:-6]:v for k,v in response['data'].items()}
             return response
         else:
-            dataset_name = self.get_dataset_name(dataset_code)[0]
+            dataset_name = self.get_dataset_name(dataset_code)
             response = r.get(f'https://api.dclimate.net/apiv3/grid-history/{dataset_name}/{lat}_{lon}', headers=HEADER)
             response = response.json()
             response['data'] = {k[:-6]:v for k,v in response['data'].items()}
@@ -43,12 +43,15 @@ class Dataset:
     def get_lat_lon(self, name):
         town = {
             "Miami": [25.762329613614614, -80.19114735100034],
+            "New York": [40.64136425563865, -73.78201731266307],
+            "Las Vegas": [36.169819817986365, -115.14034125787191]
         }
         return town[name] if town[name]!= None else None
     
     def get_dataset_name(self, name):
         dataset = {
             "wind": ["era5_land_wind_u-hourly", "era5_land_wind_v-hourly"],
+            "temp": "rtma_temp-hourly"
         }
         return dataset[name] if dataset[name]!= None else None
     
@@ -70,10 +73,10 @@ class Dataset:
 
 
 
-dataset = Dataset()
+#dataset = Dataset()
 
 
-d = dataset.download("Miami", "wind")
+#d = dataset.download("Miami", "wind")
 
 
 
@@ -135,10 +138,11 @@ class Vacation:
         
         # in case, metric = avg
         for k, v in timeseries.items():
-            if int(k.split("-")[0]) in values:
-                values[int(k.split("-")[0])] += [float(v.split()[0])]
-            else:
-                values[int(k.split("-")[0])] = [float(v.split()[0])]
+            if v is not None:
+                if int(k.split("-")[0]) in values:
+                    values[int(k.split("-")[0])] += [float(v.split()[0])]
+                else:
+                    values[int(k.split("-")[0])] = [float(v.split()[0])]
         return {k:sum(v)/len(v) for k,v in values.items()}
         
 
@@ -165,7 +169,7 @@ class Vacation:
         
         
 
-
+"""
 vacation = Vacation()
 
 ts = vacation.get_timeseries(d, 2001, 2022, "09-01", "09-14", 0, 24)
@@ -184,3 +188,4 @@ input_date = [[2022]]
 result = model.predict(input_date)
 print(result)
 vacation.save_model(model)
+"""
