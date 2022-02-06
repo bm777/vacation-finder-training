@@ -48,9 +48,21 @@ class Dataset:
             os.mkdir(self.dataset)
             if os.path.exists(_path):
                 os.remove(_path)
-            
+                
+        if self.dataset == "wind":
+            daily = self.get_daily_values(content["data"], metric="avg")
+        elif self.dataset == "rainfall":
+            pass
+        elif self.dataset == "snowfall":
+            pass
+        elif self.dataset == "temp":
+            pass
+        elif self.dataset == "solar":
+            pass
+        
+        
         with open(_path, 'w') as json_file:
-            json.dump(content, json_file)
+            json.dump(daily, json_file)
         print(f"{_path} Saved.")
     
     def get_lat_lon(self, name):
@@ -87,17 +99,21 @@ class Dataset:
             tok = t.readline()
         return tok.strip()
     
-    def get_daily_values(self, timeseries):
+    def get_daily_values(self, timeseries, metric="avg"):
         values = {}
-        
+
         # in case, metric = avg
-        for k, v in timeseries.items():
-            if v is not None:
-                if int(k.split("-")[0]) in values:
-                    values[int(k.split("-")[0])] += [float(v.split()[0])]
-                else:
-                    values[int(k.split("-")[0])] = [float(v.split()[0])]
-        return {k:sum(v)/len(v) for k,v in values.items()}
+        if metric == "avg":
+            for k, v in timeseries.items():
+                if v is not None:
+                    if k[:10] in values:
+                        values[k[:10]] += [float(v.split()[0])]
+                    else:
+                        values[k[:10]] = [float(v.split()[0])]
+            return {"data": {k:sum(v)/len(v) for k,v in values.items()} } 
+
+        return {"data": values}
+
 
 
 
