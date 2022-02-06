@@ -49,16 +49,10 @@ class Dataset:
             if os.path.exists(_path):
                 os.remove(_path)
                 
-        if self.dataset == "wind":
+        if self.dataset in ["temp", "wind"]:
             daily = self.get_daily_values(content["data"], metric="avg")
-        elif self.dataset == "rainfall":
-            pass
-        elif self.dataset == "snowfall":
-            pass
-        elif self.dataset == "temp":
-            pass
-        elif self.dataset == "solar":
-            pass
+        elif self.dataset in ["rainfall", "snowfall", "solar"]:
+            daily = self.get_daily_values(content["data"], metric="sum")
         
         
         with open(_path, 'w') as json_file:
@@ -101,7 +95,16 @@ class Dataset:
     
     def get_daily_values(self, timeseries, metric="avg"):
         values = {}
-
+        
+        if metric == "sum":
+            for k, v in timeseries.items():
+                if v is not None:
+                    if k[:10] in values:
+                        values[k[:10]] += [float(v.split()[0])]
+                    else:
+                        values[k[:10]] = [float(v.split()[0])]
+            return {"data": {k:sum(v) for k,v in values.items()} } 
+        
         # in case, metric = avg
         if metric == "avg":
             for k, v in timeseries.items():
