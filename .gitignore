@@ -1,5 +1,6 @@
 .token
 json/
+__pycache__/
 dataset/
 #rainfall/
 #snowfall/
