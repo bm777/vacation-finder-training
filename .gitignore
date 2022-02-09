@@ -1,10 +1,11 @@
 .token
 json/
-rainfall/
-snowfall/
-solar/
-temp/
-wind/
+#dataset/
+#rainfall/
+#snowfall/
+#solar/
+#temp/
+#wind/
 .idea/
 .ipynb_checkpoints/
 .virtual_documents/
