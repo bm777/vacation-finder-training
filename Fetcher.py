@@ -45,12 +45,14 @@ class Dataset:
             return response
     
     def save(self, content):
-        _path = f"{self.dataset}/{self.town}.json"
+        _path = f"dataset/{self.dataset}/{self.town}.json"
         
-        if not os.path.exists(self.dataset):
-            os.mkdir(self.dataset)
-            if os.path.exists(_path):
-                os.remove(_path)
+        if not os.path.exists("dataset/"):
+            os.mkdir("dataset")
+            if not os.path.exists(self.dataset):
+                os.mkdir(self.dataset)
+                if os.path.exists(_path):
+                    os.remove(_path)
                 
         if self.dataset in ["temp", "wind"]:
             daily = self.get_daily_values(content["data"], metric="avg")
