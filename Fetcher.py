@@ -38,7 +38,10 @@ class Dataset:
             dataset_name = self.get_dataset_name(dataset_code)
             response = r.get(f'https://api.dclimate.net/apiv3/grid-history/{dataset_name}/{lat}_{lon}', headers=HEADER)
             response = response.json()
-            response['data'] = {k[:-6]:v for k,v in response['data'].items()}
+            if dataset_code != "temp":
+                response['data'] = {k[:-6]:v for k,v in response['data'].items()}
+            else:
+                response['data'] = {k:v for k,v in response['data'].items()}
             return response
     
     def save(self, content):
