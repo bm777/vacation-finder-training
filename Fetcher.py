@@ -49,17 +49,22 @@ class Dataset:
         
         if not os.path.exists("dataset/"):
             os.mkdir("dataset")
-            if not os.path.exists(self.dataset):
-                os.mkdir(self.dataset)
+            if not os.path.exists(f"dataset/{self.dataset}"):
+                os.mkdir(f"dataset/{self.dataset}")
                 if os.path.exists(_path):
                     os.remove(_path)
-                
+        else:
+            if not os.path.exists(f"dataset/{self.dataset}"):
+                os.mkdir(f"dataset/{self.dataset}")
+                if os.path.exists(_path):
+                    os.remove(_path)
+            
         if self.dataset in ["temp", "wind"]:
             daily = self.get_daily_values(content["data"], metric="avg")
         elif self.dataset in ["rainfall", "snowfall", "solar"]:
             daily = self.get_daily_values(content["data"], metric="sum")
         
-        
+        print(_path)
         with open(_path, 'w') as json_file:
             json.dump(daily, json_file)
         print(f"{_path} Saved.")
