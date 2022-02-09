@@ -11,6 +11,18 @@ pip3 install -r requirements.txt
 python3 Fetcher_download.py
 ```
 
+You should have this structure from your root folder
+
+```
+├── dataset
+│   ├── rainfall
+│   ├── snowfall
+│   ├── solar
+│   ├── temp
+│   └── wind
+
+```
+
 ### 2. Automatic training of temperature forecast
 This command will launch the API to get prediction or forecast value
 
