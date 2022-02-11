@@ -1,5 +1,5 @@
 apscheduler
 fastapi
-uvicorn
+uvicorn==0.16.0
 statsmodels==0.12.0
 pandas
