@@ -16,5 +16,5 @@ Vacation_ML_temp_min.ipynb
 Vacation-model.ipynb
 prediction-SARIMA.py
 puller-old.py
-compare.ipynb
+#compare.ipynb
 .gitignore

@@ -23,9 +23,13 @@ def process_download():
 
 
 def training(days=30):
-    for dataset in list_town:
-        for town in list_town:
+    d = Dataset()
+    final_df = []
+    for dataset in list_dataset[:1]:
+        for town in list_town[:2]:
+            print(f"dataset/{dataset}/{town}.json")
             if os.path.exists(f"dataset/{dataset}/{town}.json"):
+                print(f"{dataset} - {town}")
                 res = json.load(open(f"dataset/{dataset}/{town}.json"))
                 data = res["data"]
 
@@ -38,12 +42,13 @@ def training(days=30):
                 df = df[~df.index.astype(str).str.contains('02-29')]
 
                 #algorithm
+                print("Training...")
                 hw_model = ExponentialSmoothing(df["Value"],
                           trend    ="add",
                           seasonal = "add",
                           seasonal_periods=365,
                           damped=False
-                          ).fit(use_boxcox=None) # damped=False
+                          ).fit(use_boxcox="log") # damped=False
 
 
                 hw_fitted = hw_model.fittedvalues
@@ -51,10 +56,23 @@ def training(days=30):
                 days_in_future = 30
                 # Adding the mean of the residuals to correct the bias.
                 py_hw = hw_model.forecast(days_in_future) + np.mean(hw_resid)
+                print(py_hw)
 
                 # to frame
-                py_hw.to_frame()
+                df = py_hw.to_frame()
 
+                # get lat and long
+                lat, long = d.get_lat_lon(town)
+
+                df["lat"] = str(lat)
+                df["long"] = str(long)
+                df["town"] = str(town)
+
+                final_df.append(df)
+                df = None
+
+    to_save = pd.concat(final_df)
+    to_save.to_pickle("temp_model.pkl")
 
 
 
