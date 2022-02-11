@@ -15,10 +15,10 @@ list_dataset = ["temp", "rainfall", "snowfall", "wind", "solar"]
 def process_download():
     d = Dataset()
     print("---------------------------------------------------------------------")
-    for town in list_town[:1]
-        for dataset in list_dataset:
+    for town in list_town:
+        for dataset in list_dataset[:1]:
             print(f"-dataset: {dataset} -town: {town}")
-            res = d.download(town, dataset)
+            res = d.download(town, dataset)     # At each download, it will overwrite value of the constructor with  new value of town and dataset_code
             d.save(res)
 
 
@@ -73,6 +73,8 @@ def training(days=30):
 
     to_save = pd.concat(final_df)
     to_save.to_pickle("temp_model.pkl")
+
+
 
 
 
