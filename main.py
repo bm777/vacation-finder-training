@@ -9,7 +9,7 @@ app = FastAPI()
 
 
 @app.get("/temp")
-def get_temp(date_forecast: str, twon: str):
+def get_temp(date_forecast: str, town: str):
     # red model and get prediction
     df = pd.read_pickle("temp_model.pkl")
     pred = get_prediction(df, date_forecast, town)
