@@ -1,4 +1,5 @@
 apscheduler
+pandas==0.25.3
 fastapi
 statsmodels==0.12.0
 uvicorn
