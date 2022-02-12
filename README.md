@@ -16,6 +16,8 @@ python3 Fetcher_download.py
 You should have this structure from your root folder
 
 ```
+|vacation-finder-training
+├── ...
 ├── dataset
 │   ├── rainfall
 │   ├── snowfall
