@@ -26,7 +26,7 @@ def training(days=30):
     d = Dataset()
     final_df = []
     for dataset in list_dataset[:1]:
-        for town in list_town[:2]:
+        for town in list_town:
             print(f"dataset/{dataset}/{town}.json")
             if os.path.exists(f"dataset/{dataset}/{town}.json"):
                 print(f"{dataset} - {town}")
