@@ -75,6 +75,13 @@ def training(days=30):
     to_save.to_pickle("temp_model.pkl")
 
 
+def download_training():
+    # download every 2 hours
+    process_download()
+
+    # train Automatically after downloaded dataset
+    training()
+
 
 
 
@@ -89,9 +96,10 @@ def listener():
 """
 
 
-process_download()
+#process_download()
+download_training()
 
 scheduler = BlockingScheduler(timezone=str(tzlocal.get_localzone()))
-scheduler.add_job(process_download, "interval", hours=2)      # minutes=2, hours=2, seconds=5
+scheduler.add_job(download_training, "interval", hours=2)      # minutes=2, hours=2, seconds=5
 #scheduler.add_listener(listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
 scheduler.start()

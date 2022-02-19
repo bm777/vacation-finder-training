@@ -27,16 +27,17 @@ You should have this structure from your root folder
 
 ```
 
-### 2. Automatic training of temperature forecast (building....)
+### 2. Automatic training of temperature forecast
 This command will launch the API to get prediction or forecast value.
+
+For Development and debugging:
+
+```
+python3 main.py
+```
 
 For final deployment:
 
 ```
 uvicorn main:app --reload
-```
-For Development and debugging:
-
-```
-python3 main.py
 ```
