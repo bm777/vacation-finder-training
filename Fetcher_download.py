@@ -9,7 +9,7 @@ from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
 from statsmodels.tsa.holtwinters import ExponentialSmoothing, SimpleExpSmoothing
 
 # global variable
-list_town = ["Miami", "New York", "Las Vega", "Chicago", "Seattle", "San Francisco", "Washington","New Orleans", "Palm Springs", "San Diego", "Charleston"]
+list_town = ["Miami", "New York", "Las Vegas", "Chicago", "Seattle", "San Francisco", "Washington","New Orleans", "Palm Springs", "San Diego", "Charleston"]
 list_dataset = ["temp", "rainfall", "snowfall", "wind", "solar"]
 
 def process_download():
@@ -56,7 +56,7 @@ def training(days=30):
                 days_in_future = 30
                 # Adding the mean of the residuals to correct the bias.
                 py_hw = hw_model.forecast(days_in_future) + np.mean(hw_resid)
-                print(py_hw)
+
 
                 # to frame
                 df = py_hw.to_frame()
