@@ -96,7 +96,7 @@ def listener():
 """
 
 
-#process_download()
+#process_download() function
 download_training()
 
 scheduler = BlockingScheduler(timezone=str(tzlocal.get_localzone()))

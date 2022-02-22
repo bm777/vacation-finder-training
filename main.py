@@ -6,7 +6,7 @@ from Model import get_prediction
 app = FastAPI()
 
 ## load temperature predictor
-
+# fake data ignored
 
 @app.get("/temp")
 def get_temp(date_forecast: str, town: str):

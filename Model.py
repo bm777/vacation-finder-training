@@ -23,6 +23,6 @@ def get_prediction(df_open, date_in_future, town):
 
 
 def get_last_day_from_dataset(town):
-    df = json.load(open(f"dataset/temp/{town}.json"))
+    df = json.load(open(f"dataset/temp/{town}.json")) # load dataset from local storage
     df = df["data"]
     return list(df.keys())[-1]
