@@ -1,6 +1,6 @@
 # Vacation-finder-training
 
-vacation-finder-training is the vacator which pull data from dClimate server periodically and train models
+vacation-finder-training is the vacator(vacation spot finder in US) which pull data from dClimate server periodically and train models
 
 ### 1. Usage of the Fetcher.py file
 That script job will download temperature, snowfall, wind, rainfall and solar data and store locally.
